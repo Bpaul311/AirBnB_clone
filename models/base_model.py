@@ -1,41 +1,39 @@
 #!/usr/bin/python3
-<<<<<<< HEAD
 """a model representing a base through a class"""
 import uuid
 from datetime import datetime
 from models import storage
 
+
 class BaseModel():
-     """a representation of the base model class"""
+    """a representation of a base"""
 
+    def __init__(self, *args, **kwargs):
 
-=======
-"""
-
-"""
-import uuid
-from datetime import datetime
-
-
-class BaseModel:
-    def __init__(self, *arg, **kwargs):
-        time_iso_format = "%Y-%m-%dT%H:%M:%S.%f"
-        if (kwargs):
+        if len(kwargs) > 0:
             for key, value in kwargs.items():
-                if key == "__class__":
+                if key == 'created_at' or key == 'updated_at':
+                    """set the created_at and updated_at as datetime objects"""
+
+                    setattr(self,
+                            key,
+                            datetime.strptime(value, "%Y-%m-%dT%H:%M:%S.%f")
+                            )
+                elif key == '__class__':
                     continue
-                elif key == "created_at" or key == "updated_at":
-                    setattr(self, key, datetime.strptime(
-                        value, time_iso_format))
                 else:
+                    """set other values as usual using setattr method"""
+
                     setattr(self, key, value)
         else:
+            """this creates a usual class instance as used earlier"""
+
             self.id = str(uuid.uuid4())
+            self.created_at = datetime.now()
+            self.updated_at = datetime.now()
+            storage.new(self)
 
-            self.created_at = datetime.utcnow()
-            self.updated_at = datetime.utcnow()
-
- def __str__(self):
+    def __str__(self):
         return "[{}] ({}) {}".format(
                 self.__class__.__name__,
                 self.id,
@@ -43,7 +41,8 @@ class BaseModel:
 
     def save(self):
         """updates the updated_at variable"""
-        self.updated_at = datetime.utcnow()
+        self.updated_at = datetime.now()
+        storage.save()
 
     def to_dict(self):
         """returns a dictionary representation of the class"""
@@ -55,14 +54,3 @@ class BaseModel:
         obj['updated_at'] = self.updated_at.isoformat()
 
         return obj
-
-if __name__ == "__main__":
-    my_model = BaseModel()
-    my_model.name = "First Model"
-    my_model.my_number = 66
-    print(my_model)
-    my_model.save()
-    print(my_model)
-    my_model_json = my_model.to_dict()
-    print(my_model_json)
->>>>>>> 60cdf59d4112c566adac1e23acb7fc4744a572ab
