@@ -34,7 +34,7 @@ class HBNBCommand(cmd.Cmd):
         elif args[0] not in HBNBCommand.__classes:
             print("** class doesn't exist **")
         else:
-            instance = eval(arg[0])+ '()')
+            instance = eval(arg[0] + '()')
             instance.save()
             print(instance.id)
     def do_show(self,args):
