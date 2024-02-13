@@ -11,6 +11,6 @@ my_model_json = my_model.to_dict()
 print(my_model_json)
 print("JSON of my_model:")
 for key in my_model_json.keys():
-     value_type = type(my_model_json[key])
+    value_type = type(my_model_json[key])
     value = my_model_json[key]
     print("\t{}: ({}) - {}".format(key, value_type, value))
