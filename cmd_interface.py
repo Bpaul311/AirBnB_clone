@@ -1,24 +1,23 @@
 #!/usr/bin/python3
-"""
-Simple command-line interface for the HBNB clone project using the cmd module.
-"""
-
+"""a cmd class that defines all commands of the hbnb clone project"""
 import cmd
 
+
 class HBNBCommand(cmd.Cmd):
-    """HBNBCommand class: a cmd module subclass for the HBNB clone project."""
+    """a cmd module subclass"""
 
     prompt = '(hbnb) '
 
     def do_quit(self, arg):
-        """Exit the program. Usage: quit"""
+        """Quit command to exit the program"""
+
         return True
 
     def do_EOF(self, arg):
-        """Exit the program. Usage: Press Ctrl+D (Unix-like) or Ctrl+Z (Windows)"""
+        """EOF command to exit the program"""
+
         return True
 
     def emptyline(self):
-        """Do nothing on an empty line."""
+        """ this should handle when the empty line is entered to the program"""
         pass
-
