@@ -35,24 +35,26 @@ class HBNBCommand(cmd.Cmd):
             print("** class doesn't exist **")
         else:
             instance = eval(arg[0] + '()')
-            instance.save()
+            models.storage.save()
             print(instance.id)
+
     def do_show(self,args):
         """show model instance"""
-        string = args.split()
-        if len(string) == 0:
+        strings = args.split()
+        if len(strings) == 0:
             print("** class name missing **")
-        elif string[0] not in HBNBCommand.__classes:
+        elif strings[0] not in HBNBCommand.__classes:
             print("** class doesn't exist **")
-        elif len(string) == 1:
+        elif len(strings) == 1:
             print("** instance id missing ** ")
         else:
             obj = models.storage.all()
-            key_val = string[0] + '.' + string[1]
+            key_val = strings[0] + '.' + strings[1]
             if key_val in obj:
                 print(obj[key_val])
             else:
                 print("** no instance found **")
+
     def do_destroy(self, args):
         '''Delete an instance
            Usage: destroy <class name> <id>
