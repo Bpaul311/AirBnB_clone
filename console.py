@@ -1,5 +1,5 @@
 #!/usr/bin/python3
-'''The console '''
+'''Command Interpreter'''
 import cmd
 import re
 import shlex 
@@ -26,32 +26,37 @@ class HBNBCommand(cmd.Cmd):
         "State",
         "User"
     ]
+
     def do_create(self, args):
-        """Create model instance"""
+        '''Create a new instance of BaseModel, save it and prints the id
+           Usage: create <class name>
+        '''
         args = args.split()
         if len(args) == 0:
             print("** class name missing **")
         elif args[0] not in HBNBCommand.__classes:
             print("** class doesn't exist **")
         else:
-            instance = eval(arg[0] + '()')
+            new_creation = eval(args[0] + '()')
             models.storage.save()
-            print(instance.id)
+            print(new_creation.id)
 
-    def do_show(self,args):
-        """show model instance"""
+    def do_show(self, args):
+        '''Prints the string representation of a specific instance
+           Usage: show <class name> <id>
+        '''
         strings = args.split()
         if len(strings) == 0:
             print("** class name missing **")
         elif strings[0] not in HBNBCommand.__classes:
             print("** class doesn't exist **")
         elif len(strings) == 1:
-            print("** instance id missing ** ")
+            print("** instance id missing **")
         else:
             obj = models.storage.all()
-            key_val = strings[0] + '.' + strings[1]
-            if key_val in obj:
-                print(obj[key_val])
+            key_value = strings[0] + '.' + strings[1]
+            if key_value in obj:
+                print(obj[key_value])
             else:
                 print("** no instance found **")
 
@@ -152,18 +157,20 @@ class HBNBCommand(cmd.Cmd):
                     print("** class doesn't exist **")
                     return None
 
-
     def do_quit(self, args):
-        """Exit the program. Usage: quit"""
+        '''<Quit> Exit The Program'''
         return True
 
     def do_EOF(self, args):
-        """Exit the program. Usage: Press Ctrl+D (Unix-like) or Ctrl+Z (Windows)"""
+        '''Handles end of file'''
         return True
 
     def emptyline(self):
-        """Do nothing on an empty line."""
+        '''dont execute anything when user
+           press enter an empty line by choice or mistake
+        '''
         pass
+
 
 if __name__ == '__main__':
     HBNBCommand().cmdloop()
