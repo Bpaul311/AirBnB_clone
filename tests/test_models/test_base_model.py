@@ -14,4 +14,4 @@ class TestBaseModel_instantiation(unitest.TestCase):
     def test_no_args_instances(self):
         self.assertEqual(BaseModel, type(BaseModel()))
 
-    
+    def
